@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class LinkListApp {
+public class LinkedListQ {
     public static void main(String[] args) {
 
         /*System.out.println("Vanilla LL");
-        LinkedList ll = new LinkedList();
+        LinkedListX ll = new LinkedListX();
         ll.insertLast(1);
         ll.insertLast(2);
         ll.insertLast(3);
@@ -75,5 +75,76 @@ public class LinkListApp {
 
         ArrayList<Character> a = new ArrayList<>();
         a.add('x');
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        // corner cases
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        int sum = 0;
+        int carry = 0;
+        ListNode head = null;
+        ListNode ptr = null;
+
+        while(l1 != null && l2 != null) {
+            sum = l1.val + l2.val + carry;
+            carry = 0;
+            if (sum >= 10) {
+                sum = sum % 10;
+                carry = 1;
+            }
+            ListNode sumn = new ListNode(sum);
+            if (head == null) {
+                head = sumn;
+                ptr = head;
+            } else {
+                ptr.next = sumn;
+                ptr = ptr.next;
+            }
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        if(l1 == null && l2 != null) {
+            while(l2 != null) {
+                sum = l2.val + carry;
+                carry = 0;
+                if (sum >= 10) {
+                    sum = sum % 10;
+                    carry = 1;
+                }
+                ListNode l2a = new ListNode(sum);
+                ptr.next = l2a;
+                ptr = ptr.next;
+                l2 = l2.next;
+            }
+        } else if(l1 != null) {
+            while(l1 != null) {
+                sum = l1.val + carry;
+                carry = 0;
+                if (sum >= 10) {
+                    sum = sum % 10;
+                    carry = 1;
+                }
+                ListNode l1a = new ListNode(sum);
+                ptr.next = l1a;
+                ptr = ptr.next;
+                l1 = l1.next;
+            }
+        }
+        if (carry > 0) {
+            ListNode lc = new ListNode(1);
+            ptr.next = lc;
+            ptr = ptr.next;
+        }
+        return head;
+    }
+
+    class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 }

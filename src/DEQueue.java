@@ -1,11 +1,11 @@
 public class DEQueue {
     int maxSize;
-    LinkedList queList;
+    LinkedListX queList;
     int nItems = 0;
 
     DEQueue(int size) {
         maxSize = size;
-        queList = new LinkedList();
+        queList = new LinkedListX();
     }
 
     public void insertLeft(int value) {

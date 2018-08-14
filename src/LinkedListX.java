@@ -1,8 +1,8 @@
-public class LinkedList {
+public class LinkedListX {
     Link first;
     Link last;
 
-    public LinkedList() {
+    public LinkedListX() {
         first = null;
         last = null;
     }

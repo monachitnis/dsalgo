@@ -17,7 +17,7 @@ public class Worksheet {
         System.out.println(list1);
 
         // Test Servers allocate/deallocate
-        DS.Servers s1 = new DS.Servers();
+        Servers s1 = new Servers();
         System.out.println(s1.allocate("apibox"));
         System.out.println(s1.allocate("apibox"));
         System.out.println(s1.deallocate("apibox2"));

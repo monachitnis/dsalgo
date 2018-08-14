@@ -1,11 +1,11 @@
 public class PriorityQueue {
     int maxSize;
-    LinkedList queList;
+    LinkedListX queList;
     int nItems = 0;
 
     PriorityQueue(int size) {
         maxSize = size;
-        queList = new LinkedList();
+        queList = new LinkedListX();
     }
 
     public void add(int value) { // ordered list, asc. O(N)
