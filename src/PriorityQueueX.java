@@ -1,9 +1,9 @@
-public class PriorityQueue {
+public class PriorityQueueX {
     int maxSize;
     LinkedListX queList;
     int nItems = 0;
 
-    PriorityQueue(int size) {
+    PriorityQueueX(int size) {
         maxSize = size;
         queList = new LinkedListX();
     }

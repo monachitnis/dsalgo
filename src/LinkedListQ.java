@@ -19,7 +19,7 @@ public class LinkedListQ {
         ll.displayList();
 
         System.out.println("Priority Q using LL");
-        PriorityQueue pq = new PriorityQueue(5);
+        PriorityQueueX pq = new PriorityQueueX(5);
         pq.add(21);
         pq.add(20);
         pq.add(19);
@@ -75,6 +75,33 @@ public class LinkedListQ {
 
         ArrayList<Character> a = new ArrayList<>();
         a.add('x');
+
+
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(3);
+        l1.next.next = new ListNode(5);
+        l1.next.next.next = new ListNode(7);
+        l1.next.next.next.next = new ListNode(9);
+        l1.display();
+
+        ListNode l2 = new ListNode(2);
+        l2.next = new ListNode(4);
+        l2.next.next = new ListNode(6);
+        l2.next.next.next = new ListNode(8);
+        l2.next.next.next.next = new ListNode(10);
+        l2.next.next.next.next.next = new ListNode(12);
+        l2.display();
+
+        ListNode merged = mergeSortedLinkedLists(l1, l2);
+        merged.display();
+
+        ListNode l3 = new ListNode(4);
+        l3.next = new ListNode(2);
+        l3.next.next = new ListNode(1);
+        l3.next.next.next = new ListNode(3);
+        l3.next.next.next.next = new ListNode(0);
+        ListNode sorted = sortConstantSpace(l3);
+        sorted.display();
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -139,12 +166,83 @@ public class LinkedListQ {
         return head;
     }
 
-    class ListNode {
+    static ListNode mergeSortedLinkedLists(ListNode l1, ListNode l2) {
+        // merge l1 and l2 in constant space
+        // corner cases
+        if (l2 == null) return l1;
+        if (l1 == null) return l2;
+        ListNode head;
+        // init
+        if(l1.val <= l2.val) {
+            head = l1;
+            l1 = l1.next;
+        } else {
+            head = l2;
+            l2 = l2.next;
+        }
+        ListNode curr = head;
+        while(l1 != null && l2 != null) {
+            if(l1.val <= l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                l2 = l2.next;
+            }
+            curr = curr.next;
+        }
+        // smaller list ended
+        if (l1 == null) curr.next = l2;
+        else curr.next = l1;
+        return head;
+    }
+
+    static ListNode sortConstantSpace(ListNode head) {
+        // use mergesort - O(nlogn) complexity
+        // traverse once to get length, then repeatedly divide length by 2
+        int len = 0;
+        if (head == null || head.next == null) return head;
+        ListNode curr = head;
+        while(curr != null) {
+            len++;
+            curr = curr.next;
+        }
+        return mergeSort(head, 0, len);
+    }
+
+    static ListNode mergeSort(ListNode l, int low, int high) {
+        if(low >= high || l.next == null) return l;
+        int mid = (low+high)/2;
+        // get first and second halves of l
+        ListNode l1 = l;
+        int count = low;
+        while(count < mid-1) {
+            l1 = l1.next;
+            count++;
+        }
+        ListNode l2 = l1.next;
+        l1.next = null;
+        ListNode half1 = mergeSort(l, low, mid);
+        ListNode half2 = mergeSort(l2, mid, high);
+        return mergeSortedLinkedLists(half1, half2);
+    }
+
+    static class ListNode {
         int val;
         ListNode next;
 
         ListNode(int x) {
             val = x;
+        }
+
+        public void display() {
+            ListNode current = this;
+            while (current != null) {
+                System.out.print(current.val);
+                if (current.next != null) System.out.print(" -> ");
+                current = current.next;
+            }
+            System.out.println();
         }
     }
 }
